@@ -1,10 +1,10 @@
+import { FriendForm } from "../../shared";
 
-const AddFriend = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+export const AddFriend = () => {
+  return (
+    <div className="mt-lg-5">
+      <h2 className="mb-lg-5">Add New Friend</h2>
+      <FriendForm />
+    </div>
+  );
 };
-
-export default AddFriend;

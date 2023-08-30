@@ -1,35 +1,45 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { Friend, FriendsState } from "./types.ts";
 
-const initialState = {
+const initialState: FriendsState = {
   friends: [],
-  selectedFriendToDisplay: null,
-  editFriend: null,
+  selectedFriendToDisplay: {} as Friend,
 };
 
 const friendsSlice = createSlice({
-  name: "friends",
+  name: "friendsData",
   initialState,
   reducers: {
-    addFriend: (state, { payload }) => {
-      state.friends.push(payload);
+    addFriend: (state: FriendsState, action: PayloadAction<Friend>) => ({
+      ...state,
+      friends: [...state.friends, action.payload],
+    }),
+    updateFriend: (state: FriendsState, action: PayloadAction<Friend>) => {
+      const updatedFriend = action.payload;
+      const updatedFriends = state.friends.map((friend) =>
+        friend.id === updatedFriend.id ? updatedFriend : friend
+      );
+      return {
+        ...state,
+        friends: updatedFriends,
+      };
     },
-    removeFriend: (state, { payload }) => {
+
+    removeFriend: (
+      state: FriendsState,
+      action: PayloadAction<{ id: number }>
+    ) => {
       state.friends = state.friends.filter(
-        (friend) => friend.id !== payload.id
+        (friend) => friend.id !== action.payload.id
       );
     },
-    selectFriendToDisplay: (state, { payload }) => {
+    selectFriendToDisplay: (
+      state: FriendsState,
+      action: PayloadAction<{ id: number }>
+    ) => {
       state.selectedFriendToDisplay = state.friends.find(
-        (friend) => friend.id === payload.id
+        (friend) => friend.id === action.payload.id
       );
-    },
-    updateFriend: (state, { payload }) => {
-      const index = state.friends.findIndex(
-        (friend) => friend.id === payload.id
-      );
-      if (index !== -1) {
-        state.friends[index] = updatedFriend;
-      }
     },
   },
 });

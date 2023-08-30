@@ -1,21 +1,28 @@
-import React from "react";
 import { Button } from "react-bootstrap";
+import { ActionButtonVariants } from "./types.ts";
 
 type ActionButtonType = {
-  variant: string;
+  variant: ActionButtonVariants;
   label: string;
   disabled?: boolean;
-  action: () => void;
+  action?: () => void;
+  className?: string;
 };
 export const ActionButton = ({
   variant,
   action,
   disabled,
   label,
+  className,
 }: ActionButtonType) => {
   return (
     <>
-      <Button disabled={disabled} variant={variant} onClick={action}>
+      <Button
+        className={className}
+        disabled={disabled}
+        variant={variant}
+        onClick={action}
+      >
         {label}
       </Button>
     </>

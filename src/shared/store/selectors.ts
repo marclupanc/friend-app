@@ -1,6 +1,6 @@
-import { Friend, Friends } from "./types.ts";
+import { Friend, Store } from "./types.ts";
 
-export const allFriends: Friends = (state) => state.friends.friends;
+export const allFriends = (store: []) => store.friends.friends;
 
-export const selectedFriendToDisplaySelector: Friend = (state) =>
-  state.friends.selectedFriendToDisplay;
+export const selectedFriendToDisplaySelector = (store: Store): Friend =>
+  store.friends.selectedFriendToDisplay;

@@ -6,3 +6,12 @@ export type Friend = {
   phone: number;
   twitter: string;
 };
+
+export type FriendsState = {
+  friends: Friend[];
+  selectedFriendToDisplay: Friend;
+};
+
+export type Store = {
+  friends: FriendsState;
+};

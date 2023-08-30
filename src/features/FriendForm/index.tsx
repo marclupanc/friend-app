@@ -1,45 +1,36 @@
-import React from "react";
 import { Form } from "react-bootstrap";
 import { ActionButtonVariants } from "../../shared/ui/ActionButton/types.ts";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { addFriend, updateFriend } from "../../store/friendsSlice.ts";
 import { Formik } from "formik";
 import { ActionButton } from "../../shared";
 import { FriendFormSchema } from "../../shared/constants.ts";
-import { selectedFriendToDisplaySelector } from "../../store/selectors.ts";
+import {
+  addFriend,
+  removeFriend,
+  updateFriend,
+} from "../../shared/store/friendsSlice.ts";
+import { selectedFriendToDisplaySelector } from "../../shared/store/selectors.ts";
+import React from "react";
+import { Friend } from "../../shared/store/types.ts";
 
-export const AddNewFriendForm = () => {
+type FriendFormProps = {
+  mode?: "edit" | undefined;
+};
+
+export const FriendForm: React.FC<FriendFormProps> = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { id } = useParams();
   const friend = useSelector(selectedFriendToDisplaySelector);
-
   return (
     <>
       <Formik
-        initialValues={
-          friend
-            ? {
-                id: friend.id,
-                firstName: friend.firstName,
-                lastName: friend.lastName,
-                email: friend.email,
-                phone: friend.phone,
-                twitter: friend.twitter,
-              }
-            : {
-                id: null,
-                firstName: "",
-                lastName: "",
-                email: "",
-                phone: "",
-                twitter: "",
-              }
-        }
+        initialValues={id ? friend : ({} as Friend)}
         validationSchema={FriendFormSchema}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            if (mode === "edit") {
+            if (id) {
               dispatch(updateFriend(values));
             } else {
               dispatch(addFriend({ ...values, id: Date.now() }));
@@ -123,22 +114,64 @@ export const AddNewFriendForm = () => {
               </Form.Group>
             </Form>
             <button hidden type="submit" disabled={isSubmitting}></button>
-            <ActionButton
-              variant={ActionButtonVariants.PRIMARY}
-              label="Create Friend"
-              disabled={isSubmitting}
-              action={handleSubmit}
-              className="mb-2"
-            />
-            <br />
-            <ActionButton
-              variant={ActionButtonVariants.SECONDARY}
-              label="Back"
-              disabled={isSubmitting}
-              action={() => {
-                navigate("/friends");
-              }}
-            />
+            {!id ? (
+              <>
+                <ActionButton
+                  variant={ActionButtonVariants.PRIMARY}
+                  label="Create Friend"
+                  disabled={isSubmitting}
+                  action={handleSubmit}
+                  className="mb-2"
+                />
+                <br />
+                <ActionButton
+                  variant={ActionButtonVariants.SECONDARY}
+                  label="Back"
+                  disabled={isSubmitting}
+                  action={() => {
+                    navigate("/friends");
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <ActionButton
+                  variant={ActionButtonVariants.PRIMARY}
+                  label="Update Friend"
+                  disabled={isSubmitting}
+                  action={handleSubmit}
+                  className="mb-2"
+                />
+                <br />
+                <ActionButton
+                  variant={ActionButtonVariants.SECONDARY}
+                  label="Back"
+                  disabled={isSubmitting}
+                  action={() => {
+                    navigate("/friends");
+                  }}
+                />
+                <ActionButton
+                  variant={ActionButtonVariants.SECONDARY}
+                  label="Show"
+                  disabled={isSubmitting}
+                  className="mx-2"
+                  action={() => {
+                    navigate(`/friends/${friend.id}`);
+                  }}
+                />
+
+                <ActionButton
+                  variant={ActionButtonVariants.REMOVE}
+                  label="Remove"
+                  disabled={isSubmitting}
+                  action={() => {
+                    dispatch(removeFriend({ id: friend.id }));
+                    navigate("/");
+                  }}
+                />
+              </>
+            )}
           </form>
         )}
       </Formik>

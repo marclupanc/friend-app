@@ -1,10 +1,10 @@
+import { FriendForm } from "../../features/FriendForm";
 
-const EditFriend = () => {
-    return (
-        <div>
-
-        </div>
-    );
+export const EditFriend = () => {
+  return (
+    <div className="mt-lg-5">
+      <h2 className="mb-lg-3">Editing Friend</h2>
+      <FriendForm mode="edit" />
+    </div>
+  );
 };
-
-export default EditFriend;

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import friendsReducer from "./friendsSlice";
+import friendsReducer from "./friendsSlice.ts";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 
 const persistConfig = {
-  key: "root", // Key to use for storing in local storage
+  key: "root",
   storage,
 };
 
