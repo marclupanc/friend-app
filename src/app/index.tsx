@@ -1,4 +1,3 @@
-import "./App.scss";
 import FriendsList from "../pages/FriendsList";
 
 const App = () => {

@@ -26,7 +26,7 @@ const friendsSlice = createSlice({
 
     removeFriend: (
       state: FriendsState,
-      action: PayloadAction<{ id: number }>
+      action: PayloadAction<{ id: string | undefined }>
     ) => {
       state.friends = state.friends.filter(
         (friend) => friend.id !== action.payload.id
@@ -34,7 +34,7 @@ const friendsSlice = createSlice({
     },
     selectFriendToDisplay: (
       state: FriendsState,
-      action: PayloadAction<{ id: number }>
+      action: PayloadAction<{ id: string }>
     ) => {
       state.selectedFriendToDisplay = state.friends.find(
         (friend) => friend.id === action.payload.id
