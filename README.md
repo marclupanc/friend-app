@@ -1,27 +1,47 @@
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the "Friend List" application. 
+The tech stack that was used: 
 
-Currently, two official plugins are available:
+- React
+- TypeScript
+- Vite
+- Redux-toolkit
+- Redux-persist
+- React-bootstrap
+- Formik
+- Yup
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Tried respecting the Feature Sliced Design ([FSD](https://feature-sliced.design/)) architecture.
 
-## Expanding the ESLint configuration
+## Running the app
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To run the app on your machine follow the steps bellow:
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+1. Clone the repository and install dependencies:
+```shell
+git clone https://github.com/marclupanc/friend-app.git && cd friend-app && npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Run the setup script, which takes care of installing dependencies, building packages and setting up the workspace:
+```shell
+npm run dev
+```
+
+3. Play with the app:
+
+``View friend list``
+
+``Add new friend``
+
+``View friend details``
+
+``Edit friend``
+
+``Remove Ffriend``
+
+![Add.png](public%2Fassets%2FAdd.png)
+
+![Info.png](public%2Fassets%2FInfo.png)
+
+![List.png](public%2Fassets%2FList.png)
