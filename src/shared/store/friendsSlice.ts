@@ -15,9 +15,8 @@ const friendsSlice = createSlice({
       friends: [...state.friends, action.payload],
     }),
     updateFriend: (state: FriendsState, action: PayloadAction<Friend>) => {
-      const updatedFriend = action.payload;
       const updatedFriends = state.friends.map((friend) =>
-        friend.id === updatedFriend.id ? updatedFriend : friend
+        friend.id === action.payload.id ? action.payload : friend
       );
       return {
         ...state,
@@ -39,7 +38,7 @@ const friendsSlice = createSlice({
     ) => {
       state.selectedFriendToDisplay = state.friends.find(
         (friend) => friend.id === action.payload.id
-      );
+      )!;
     },
   },
 });
